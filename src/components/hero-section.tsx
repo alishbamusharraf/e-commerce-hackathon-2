@@ -10,6 +10,9 @@ export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    const target = sectionRef.current
+    if (!target) return
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -24,14 +27,10 @@ export default function HeroSection() {
       }
     )
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
+    observer.observe(target)
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
+      observer.unobserve(target)
     }
   }, [])
 
@@ -105,4 +104,3 @@ export default function HeroSection() {
     </motion.section>
   )
 }
-
