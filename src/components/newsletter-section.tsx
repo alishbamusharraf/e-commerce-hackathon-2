@@ -10,6 +10,9 @@ export default function NewsletterSection() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    const target = sectionRef.current
+    if (!target) return
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -24,14 +27,10 @@ export default function NewsletterSection() {
       }
     )
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
+    observer.observe(target)
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
+      observer.unobserve(target)
     }
   }, [])
 
@@ -62,6 +61,7 @@ export default function NewsletterSection() {
       animate={isVisible ? "visible" : "hidden"}
       variants={containerVariants}
     >
+      {/* Background Image */}
       <motion.div
         className="absolute inset-0 z-0"
         style={{
@@ -73,50 +73,43 @@ export default function NewsletterSection() {
         animate={{ scale: 1 }}
         transition={{ duration: 10, ease: "linear" }}
       ></motion.div>
+
+      {/* Overlay */}
       <div className="absolute inset-0 bg-[#A65A2A] opacity-50 z-10"></div>
+
+      {/* Content */}
       <div className="max-w-4xl mx-auto text-center relative z-20">
-        <motion.h2 
+        <motion.h2
           className="font-clash text-3xl md:text-4xl font-medium mb-4"
           variants={itemVariants}
         >
           Join the club and get the benefits
         </motion.h2>
-        <motion.p 
+        <motion.p
           className="text-lg mb-8 max-w-2xl mx-auto"
           variants={itemVariants}
         >
           Sign up for our newsletter and receive exclusive offers on
           new ranges, sales, pop-up stores, and more
         </motion.p>
-        <motion.div 
+
+        {/* Benefit Items */}
+        <motion.div
           className="flex flex-col md:flex-row gap-4 justify-center items-center"
           variants={itemVariants}
         >
           <div className="flex items-center gap-4 text-sm mb-4 md:mb-0">
-            <motion.div 
-              className="flex items-center gap-2"
-              variants={itemVariants}
-            >
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-              <span>Exclusive offers</span>
-            </motion.div>
-            <motion.div 
-              className="flex items-center gap-2"
-              variants={itemVariants}
-            >
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-              <span>Free events</span>
-            </motion.div>
-            <motion.div 
-              className="flex items-center gap-2"
-              variants={itemVariants}
-            >
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-              <span>Large discounts</span>
-            </motion.div>
+            {['Exclusive offers', 'Free events', 'Large discounts'].map((item, idx) => (
+              <motion.div key={idx} className="flex items-center gap-2" variants={itemVariants}>
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+                <span>{item}</span>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
-        <motion.form 
+
+        {/* Email Signup Form */}
+        <motion.form
           className="flex flex-col md:flex-row gap-4 mt-8 max-w-xl mx-auto"
           variants={itemVariants}
         >
@@ -125,8 +118,8 @@ export default function NewsletterSection() {
             placeholder="your@email.com"
             className="bg-white text-black flex-grow transition-all duration-300 ease-in-out focus:ring-2 focus:ring-[#2A254B] focus:border-transparent"
           />
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             className="bg-[#2A254B] hover:bg-[#2A254B]/90 text-white transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
           >
             Sign up
@@ -136,8 +129,3 @@ export default function NewsletterSection() {
     </motion.section>
   )
 }
-
-
-
-
- 
