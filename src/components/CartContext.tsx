@@ -1,21 +1,23 @@
 "use client";
 
-import { Product } from "../app/types/products";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import Swal from "sweetalert2";
+
+import { Product } from "../app/types/products";
 import {
   getCartItems,
   RemoveFromCart,
   underCartQuantity,
 } from "../app/actions/actions";
-import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
-import Swal from "sweetalert2";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
 
   useEffect(() => {
-    setCartItems(getCartItems());
+    const items = getCartItems();
+    setCartItems(items);
   }, []);
 
   const handleRemove = (id: string) => {
@@ -29,7 +31,7 @@ const CartPage = () => {
       confirmButtonText: "Yes, remove it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        RemoveFromCart(id, 1); // Adjust quantity if needed
+        RemoveFromCart(id, 1);
         setCartItems(getCartItems());
         Swal.fire("Removed!", "Item has been removed from your cart.", "success");
       }
@@ -78,7 +80,7 @@ const CartPage = () => {
           "Your order has been successfully processed!",
           "success"
         );
-        setCartItems([]); // Optionally clear cart
+        setCartItems([]);
       }
     });
   };
@@ -99,9 +101,9 @@ const CartPage = () => {
                   <Image
                     src={urlFor(item.image).url()}
                     alt={item.productName}
-                    width={80}
-                    height={80}
-                    className="w-16 h-16 object-cover rounded-lg"
+                    width={64}
+                    height={64}
+                    className="w-16 h-16 object-cover rounded-full"
                   />
                 )}
                 <div className="ml-4">
@@ -112,7 +114,7 @@ const CartPage = () => {
                       onClick={() => handleDecrement(item._id)}
                       className="px-2 py-1 bg-gray-300 rounded-md hover:bg-gray-400"
                     >
-                      -
+                      −
                     </button>
                     <span className="mx-2">{item.inventory}</span>
                     <button
@@ -124,14 +126,13 @@ const CartPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center">
-                <button
-                  onClick={() => handleRemove(item._id)}
-                  className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                >
-                  Remove
-                </button>
-              </div>
+
+              <button
+                onClick={() => handleRemove(item._id)}
+                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+              >
+                Remove
+              </button>
             </div>
           ))
         ) : (
