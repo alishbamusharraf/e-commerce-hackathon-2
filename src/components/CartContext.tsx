@@ -29,13 +29,9 @@ const CartPage = () => {
       confirmButtonText: "Yes, remove it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        RemoveFromCart(id, 1); // Assuming quantity to remove is 1
+        RemoveFromCart(id, 1);
         setCartItems(getCartItems());
-        Swal.fire(
-          "Removed!",
-          "Item has been removed from your cart.",
-          "success"
-        );
+        Swal.fire("Removed!", "Item has been removed from your cart.", "success");
       }
     });
   };
@@ -82,7 +78,6 @@ const CartPage = () => {
           "Your order has been successfully processed!",
           "success"
         );
-        // Clear the cart after proceeding (optional)
         setCartItems([]);
       }
     });
@@ -144,7 +139,7 @@ const CartPage = () => {
         )}
       </div>
 
-      {cartItems.length > 0 price (
+      {cartItems.length > 0 && (
         <div className="mt-8 bg-white p-4 rounded-lg shadow-md">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold">Total:</h2>
