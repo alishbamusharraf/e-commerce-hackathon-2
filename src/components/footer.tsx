@@ -12,6 +12,9 @@ export default function Footer() {
   const footerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    const target = footerRef.current
+    if (!target) return
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -26,14 +29,10 @@ export default function Footer() {
       }
     )
 
-    if (footerRef.current) {
-      observer.observe(footerRef.current)
-    }
+    observer.observe(target)
 
     return () => {
-      if (footerRef.current) {
-        observer.unobserve(footerRef.current)
-      }
+      observer.unobserve(target)
     }
   }, [])
 
@@ -74,11 +73,11 @@ export default function Footer() {
           <motion.div className="space-y-6" variants={itemVariants}>
             <h3 className="text-base font-normal">Menu</h3>
             <nav className="flex flex-col space-y-4">
-              <Link href="#" className="text-sm hover:underline transition-colors duration-300">New arrivals</Link>
-              <Link href="#" className="text-sm hover:underline transition-colors duration-300">Best sellers</Link>
-              <Link href="#" className="text-sm hover:underline transition-colors duration-300">Recently viewed</Link>
-              <Link href="#" className="text-sm hover:underline transition-colors duration-300">Popular this week</Link>
-              <Link href="#" className="text-sm hover:underline transition-colors duration-300">All products</Link>
+              <Link href="#">New arrivals</Link>
+              <Link href="#">Best sellers</Link>
+              <Link href="#">Recently viewed</Link>
+              <Link href="#">Popular this week</Link>
+              <Link href="#">All products</Link>
             </nav>
           </motion.div>
 
@@ -86,12 +85,12 @@ export default function Footer() {
           <motion.div className="space-y-6" variants={itemVariants}>
             <h3 className="text-base font-normal">Categories</h3>
             <nav className="flex flex-col space-y-4">
-              <Link href="#" className="text-sm hover:underline transition-colors duration-300">Crockery</Link>
-              <Link href="#" className="text-sm hover:underline transition-colors duration-300">Furniture</Link>
-              <Link href="#" className="text-sm hover:underline transition-colors duration-300">Homeware</Link>
-              <Link href="#" className="text-sm hover:underline transition-colors duration-300">Plant pots</Link>
-              <Link href="#" className="text-sm hover:underline transition-colors duration-300">Chairs</Link>
-              <Link href="#" className="text-sm hover:underline transition-colors duration-300">Crockery</Link>
+              <Link href="#">Crockery</Link>
+              <Link href="#">Furniture</Link>
+              <Link href="#">Homeware</Link>
+              <Link href="#">Plant pots</Link>
+              <Link href="#">Chairs</Link>
+              <Link href="#">Crockery</Link>
             </nav>
           </motion.div>
 
@@ -99,11 +98,11 @@ export default function Footer() {
           <motion.div className="space-y-6" variants={itemVariants}>
             <h3 className="text-base font-normal">Our company</h3>
             <nav className="flex flex-col space-y-4">
-              <Link href="/about" className="text-sm hover:underline transition-colors duration-300">About us</Link>
-              <Link href="/products" className="text-sm hover:underline transition-colors duration-300">Vacancies</Link>
-              <Link href="/cart" className="text-sm hover:underline transition-colors duration-300">Contact us</Link>
-              <Link href="/product-listing" className="text-sm hover:underline transition-colors duration-300">Privacy</Link>
-              <Link href="/" className="text-sm hover:underline transition-colors duration-300">Returns policy</Link>
+              <Link href="/about">About us</Link>
+              <Link href="/products">Vacancies</Link>
+              <Link href="/cart">Contact us</Link>
+              <Link href="/product-listing">Privacy</Link>
+              <Link href="/">Returns policy</Link>
             </nav>
           </motion.div>
 
@@ -114,7 +113,7 @@ export default function Footer() {
               <Input 
                 type="email" 
                 placeholder="your@email.com" 
-                className="bg-[#393653] border-none text-white placeholder:text-gray-400 h-12 w-full transition-all duration-300 focus:ring-2 focus:ring-white focus:outline-none"
+                className="bg-[#393653] border-none text-white placeholder:text-gray-400 h-12 w-full"
               />
               <Button 
                 className="bg-white text-black hover:bg-gray-100 h-12 px-6 transition-all duration-300 transform hover:scale-105 active:scale-95"
@@ -132,34 +131,17 @@ export default function Footer() {
         >
           <p className="text-sm mb-6 md:mb-0">Copyright 2022 Avion LTD</p>
           <div className="flex items-center space-x-6">
-            <Link href="https://www.linkedin.com/in/alishba-musharraf-9241012b4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" className="hover:text-gray-300 transition-colors duration-300">
+            <Link href="https://www.linkedin.com/in/alishba-musharraf-9241012b4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
               <Linkedin className="w-5 h-5" />
-              <span className="sr-only">LinkedIn</span>
             </Link>
-            <Link href="#" className="hover:text-gray-300 transition-colors duration-300">
-              <Facebook className="w-5 h-5" />
-              <span className="sr-only">Facebook</span>
-            </Link>
-            <Link href="#" className="hover:text-gray-300 transition-colors duration-300">
-              <Instagram className="w-5 h-5" />
-              <span className="sr-only">Instagram</span>
-            </Link>
-            <Link href="#" className="hover:text-gray-300 transition-colors duration-300">
-              <Skype className="w-5 h-5" />
-              <span className="sr-only">Skype</span>
-            </Link>
-            <Link href="#" className="hover:text-gray-300 transition-colors duration-300">
-              <Twitter className="w-5 h-5" />
-              <span className="sr-only">Twitter</span>
-            </Link>
-            <Link href="#" className="hover:text-gray-300 transition-colors duration-300">
-              <Pinterest className="w-5 h-5" />
-              <span className="sr-only">Pinterest</span>
-            </Link>
+            <Link href="#"><Facebook className="w-5 h-5" /></Link>
+            <Link href="#"><Instagram className="w-5 h-5" /></Link>
+            <Link href="#"><Skype className="w-5 h-5" /></Link>
+            <Link href="#"><Twitter className="w-5 h-5" /></Link>
+            <Link href="#"><Pinterest className="w-5 h-5" /></Link>
           </div>
         </motion.div>
       </div>
     </motion.footer>
   )
 }
-
