@@ -29,7 +29,7 @@ const CartPage = () => {
       confirmButtonText: "Yes, remove it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        RemoveFromCart(id, 1);
+        RemoveFromCart(id, 1); // Adjust quantity if needed
         setCartItems(getCartItems());
         Swal.fire("Removed!", "Item has been removed from your cart.", "success");
       }
@@ -78,7 +78,7 @@ const CartPage = () => {
           "Your order has been successfully processed!",
           "success"
         );
-        setCartItems([]);
+        setCartItems([]); // Optionally clear cart
       }
     });
   };
@@ -98,10 +98,10 @@ const CartPage = () => {
                 {item.image && (
                   <Image
                     src={urlFor(item.image).url()}
+                    alt={item.productName}
+                    width={80}
+                    height={80}
                     className="w-16 h-16 object-cover rounded-lg"
-                    alt="image"
-                    width={500}
-                    height={500}
                   />
                 )}
                 <div className="ml-4">
